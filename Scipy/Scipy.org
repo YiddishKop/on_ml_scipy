@@ -53,6 +53,7 @@ input a matrix, return Euclidean dist of all rows
 
 how is the result computed
 
+#+BEGIN_EXAMPLE
 row 0 dist row 0 ===> result[0,0]
 row 0 dist row 1 ===> result[0,1]
 row 0 dist row 2 ===> result[0,2]
@@ -64,12 +65,16 @@ row 2 dist row 1 ===> result[2,1]
 row 2 dist row 2 ===> result[2,2]
 ---------------------------------------------
 d[i,j] = x[i,:] dist x[j,:], for x,y = 0 to 3
+#+END_EXAMPLE
 
 **** cdist
 *scipy.spatial.distance.cdist*
-input 2 collections of points, compute every point from 1st collection to all points of 2nd collection
 
-Note that, you can not apply ~squareform~ on the result of ~cdist~, it's not an symmetric matrix
+input 2 collections of points, compute every point from 1st collection to all
+points of 2nd collection
+
+Note that, you can not apply ~squareform~ on the result of ~cdist~, it's not an
+symmetric matrix
 
 #+NAME: cdist
 #+HEADER: :session
@@ -87,9 +92,14 @@ Note that, you can not apply ~squareform~ on the result of ~cdist~, it's not an 
 :  [4.47213595 3.60555128 1.        ]
 :  [4.12310563 2.82842712 0.        ]]
 
+#+BEGIN_EXAMPLE
 .                [0,1]    [1,0]    [2,0]
 .                 |
+.                 |
 .                 +---------+--------+
+.                 |         |        |
 .                 v         v        v
 .                [3,4]    [4,2]    [2,0]
+.
 .result index    (0,0)    (0,1)    (0,2)
+#+END_EXAMPLE
