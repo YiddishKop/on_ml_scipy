@@ -26,7 +26,23 @@
 
 **** pdist
 *scipy.spatial.distance.pdist*
-input a matrix, return Euclidean dist of all rows
+
+pdist(lst) -> list
+
+cdist(lst, lst) -> list of list
+
+pdist 只接受一个 list of points
+
+pdist 对 list 内的点两两求距离
+
+pdist 类似于对 list 做取2元素的 combiantion(list, 2) 操作, 然后对每个组合进行求距离运算.
+
+cdist 接受两个 list of points
+
+cdist 对两个 list 间的点两两求距离
+
+cdist 类似于对两个 list 做 product(list1, list2) 操作, 然后对每个组合进行求距离运算.
+
 
 #+NAME: distpt
 #+HEADER: :session
@@ -38,7 +54,7 @@ input a matrix, return Euclidean dist of all rows
 
   # Euclidean distance between allrows of x
   print(pdist(x, 'euclidean'))
-  d= squareform(pdist(x, 'euclidean'))
+  d = squareform(pdist(x, 'euclidean'))
   print (d)
 #+END_SRC
 
@@ -67,6 +83,29 @@ row 2 dist row 2 ===> result[2,2]
 d[i,j] = x[i,:] dist x[j,:], for x,y = 0 to 3
 #+END_EXAMPLE
 
+
+#+BEGIN_EXAMPLE
+arr1 = [[1,2], [2,3]]
+
+pdist(arr1, 'euclidean')
+
+                          [1,2]     [2,3]     <---- arr1
+                     +----------------------
+              [1,2]  |     0       sqrt(2)
+                     |
+              [2,3]  |   sqrt(2)     0     
+
+                ^
+                |
+                |
+              arr1
+
+注意 pdist 返回的只是  [0, sqrt(2)] 列表, 如果想展示如上图的形式, 需要经过
+squareform(pdist(arr1, 'euclidian'))
+#+END_EXAMPLE
+
+
+
 **** cdist
 *scipy.spatial.distance.cdist*
 
@@ -75,6 +114,24 @@ points of 2nd collection
 
 Note that, you can not apply ~squareform~ on the result of ~cdist~, it's not an
 symmetric matrix
+
+
+pdist(lst) -> list
+
+cdist(lst, lst) -> list of list
+
+pdist 只接受一个 list of points
+
+pdist 对 list 内的点两两求距离
+
+pdist 类似于对 list 做取2元素的 combiantion(list, 2) 操作, 然后对每个组合进行求距离运算.
+
+cdist 接受两个 list of points
+
+cdist 对两个 list 间的点两两求距离
+
+cdist 类似于对两个 list 做 product(list1, list2) 操作, 然后对每个组合进行求距离运算.
+
 
 #+NAME: cdist
 #+HEADER: :session
@@ -102,4 +159,24 @@ symmetric matrix
 .                [3,4]    [4,2]    [2,0]
 .
 .result index    (0,0)    (0,1)    (0,2)
+#+END_EXAMPLE
+
+
+#+BEGIN_EXAMPLE
+arr1 = [[1,2], [2,3]]
+
+arr2 = [[1,2], [2,3], [3,4]]
+
+cdist(arr1, arr2, 'euclidean')
+
+                          [1,2]     [2,3]     [3,4]      <---- arr2
+                     +--------------------------------
+              [1,2]  |     0       sqrt(2)   2*sqrt(2)
+                     |
+              [2,3]  |   sqrt(2)     0       sqrt(2)
+
+                ^
+                |
+                |
+              arr1
 #+END_EXAMPLE
